@@ -12,6 +12,7 @@ import {
   Button,
 } from "@mui/material";
 import { AiOutlineDownload } from "react-icons/ai";
+import { generateTicketPdf } from "@/components/TicketPdf";
 
 export default function myTickets() {
   const tickets = [
@@ -78,7 +79,12 @@ export default function myTickets() {
                 <TableCell>{ticket.time}</TableCell>
                 <TableCell>{ticket.price}</TableCell>
                 <TableCell>
-                  <Button endIcon={<AiOutlineDownload className="" />}></Button>
+                  <Button
+                    endIcon={<AiOutlineDownload />}
+                    onClick={generateTicketPdf}
+                  >
+                    Get Ticket
+                  </Button>
                 </TableCell>
               </TableRow>
             </>

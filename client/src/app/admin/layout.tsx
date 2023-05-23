@@ -14,9 +14,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>
+      <body className="flex flex-row gap-x-10">
         <Sidebar />
-        {children}
+        <div className="w-2/3">{children}</div>
       </body>
     </html>
   );

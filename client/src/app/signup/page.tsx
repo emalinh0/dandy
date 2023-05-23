@@ -116,6 +116,7 @@ export default function Signup() {
                   color="info"
                   variant="outlined"
                   {...register("lastName")}
+                  autoComplete="off"
                 />
                 {errors?.lastName && (
                   <Typography>{errors.lastName.message}</Typography>

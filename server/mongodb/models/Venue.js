@@ -14,10 +14,17 @@ const venueSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
-    seat: {
-      type: Number,
+    description: {
+      type: String,
       required: true,
     },
+    Events: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Event",
+        required: false,
+      },
+    ],
   },
   {
     timestamps: true,

@@ -16,62 +16,69 @@ import Axios from "axios";
 import * as React from "react";
 import { AiFillDelete } from "react-icons/ai";
 
-interface Venue {
+interface Event {
   name: string;
-  location: string;
-  capacity: number;
-  description: string;
+  date: string;
+  time: string;
+  venue: {
+    name: string;
+  };
+  price: number;
 }
 
-export default function Venues() {
-  const [venues, setVenues] = React.useState<Venue[]>();
+export default function Events() {
+  const [events, setEvents] = React.useState<Event[]>();
 
   React.useEffect(() => {
-    Axios.get("http://localhost:8080/api/v1/venues").then((response) => {
-      setVenues(response.data);
+    Axios.get("http://localhost:8080/api/v1/events").then((response) => {
+      setEvents(response.data);
     });
   }, []);
 
-  const deleteVenue = (): void => {
-    Axios.delete("http:localhost:8080/api/v1/venues:id");
+  const deleteEvent = (): void => {
+    Axios.delete("http:localhost:8080/api/v1/events/:id");
   };
 
   return (
     <Box>
       <Typography align="center" className="font-bold text-xl">
-        Venues
+        Events
       </Typography>
       <Box className="flex flex-col shadow-xl bg-[#fcfcfc] p-8 m-6 rounded-lg w-full">
         <Grid container spacing={2}>
           <Grid item xs={12} sm={6}>
             <Button className="bg-emerald-500 hover:bg-emerald-800">
               <Link
-                href="/admin/panel/venues/create-venue"
+                href="/admin/panel/events/create-event"
                 className="no-underline text-white"
               >
-                Create Venue
+                Create Event
               </Link>
             </Button>
           </Grid>
         </Grid>
-        <Table className="mt-10">
+        <Table>
           <TableHead>
             <TableRow>
+              <TableCell className="text-xl font-bold">Event</TableCell>
               <TableCell className="text-xl font-bold">Venue</TableCell>
-              <TableCell className="text-xl font-bold">Location</TableCell>
-              <TableCell className="text-xl font-bold">Capcity</TableCell>
-              <TableCell className="text-xl font-bold">Delete Venue</TableCell>
+              <TableCell className="text-xl font-bold">Date</TableCell>
+              <TableCell className="text-xl font-bold">Time</TableCell>
+              <TableCell className="text-xl font-bold">Price</TableCell>
+              <TableCell className="text-xl font-bold">Delete Event</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {venues?.map((venue) => (
+            {events?.map((event) => (
               <>
                 <TableRow>
-                  <TableCell>{venue.name}</TableCell>
-                  <TableCell>{venue.location}</TableCell>
-                  <TableCell>{venue.capacity}</TableCell>
+                  <TableCell>{event.name}</TableCell>
+                  <TableCell>{event.venue.name}</TableCell>
+                  <TableCell>{event.date}</TableCell>
+                  <TableCell>{event.time}</TableCell>
+                  <TableCell>{event.price}</TableCell>
                   <TableCell>
-                    <Button onClick={deleteVenue}>
+                    <Button onClick={deleteEvent}>
                       <AiFillDelete />
                     </Button>
                   </TableCell>

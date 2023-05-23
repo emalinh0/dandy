@@ -20,4 +20,23 @@ const createUser = async (req, res) => {
   }
 };
 
-export { getAllUsers, createUser };
+const verifyLogin = (req, res) => {
+  const { email, password } = req.body;
+  try {
+    User.findOne({ email: email }).then((user) => {
+      if (user) {
+        if (user.password === password) {
+          res.status(200).json({ message: "Login successful" });
+        } else {
+          res.status(401).json({ error: "Invalid password" });
+        }
+      } else {
+        res.status(404).json({ error: "User not found" });
+      }
+    });
+  } catch (error) {
+    res.status(500).json({ error: "Failed to verify login" });
+  }
+};
+
+export { getAllUsers, createUser, verifyLogin };
