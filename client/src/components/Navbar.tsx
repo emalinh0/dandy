@@ -20,11 +20,11 @@ export default function Navbar() {
           </Typography>
         </Box>
         <Box className="flex flex-row justify-between gap-x-4">
-          <Typography>
+          {/* <Typography>
             <Link href="/signup">Sign Up</Link>
-          </Typography>
+          </Typography> */}
           <Typography>
-            <Link href="/login">Log In</Link>
+            <Link href="/login">Log Out</Link>
           </Typography>
         </Box>
       </Box>

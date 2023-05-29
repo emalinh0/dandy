@@ -14,7 +14,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="flex flex-row gap-x-10">
+      <body className="flex flex-row gap-x-10" suppressHydrationWarning={true}>
         <Sidebar />
         <div className="w-2/3">{children}</div>
       </body>

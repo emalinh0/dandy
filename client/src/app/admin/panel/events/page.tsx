@@ -18,25 +18,30 @@ import { AiFillDelete } from "react-icons/ai";
 
 interface Event {
   name: string;
-  date: string;
   time: string;
   venue: {
     name: string;
   };
   price: number;
+  date: string;
+  description: string;
 }
 
-export default function Events() {
+export default function Venues() {
   const [events, setEvents] = React.useState<Event[]>();
 
   React.useEffect(() => {
-    Axios.get("http://localhost:8080/api/v1/events").then((response) => {
-      setEvents(response.data);
-    });
+    try {
+      fetch("http://localhost:8080/api/v1/events")
+        .then((response) => response.json())
+        .then((data) => setEvents(data));
+    } catch (error) {
+      console.log(error);
+    }
   }, []);
 
   const deleteEvent = (): void => {
-    Axios.delete("http:localhost:8080/api/v1/events/:id");
+    Axios.delete("http:localhost:8080/api/v1/events:id");
   };
 
   return (
@@ -49,7 +54,7 @@ export default function Events() {
           <Grid item xs={12} sm={6}>
             <Button className="bg-emerald-500 hover:bg-emerald-800">
               <Link
-                href="/admin/panel/events/create-event"
+                href="/admin/panel/venues/create-event"
                 className="no-underline text-white"
               >
                 Create Event
@@ -57,13 +62,11 @@ export default function Events() {
             </Button>
           </Grid>
         </Grid>
-        <Table>
+        <Table className="mt-10">
           <TableHead>
             <TableRow>
               <TableCell className="text-xl font-bold">Event</TableCell>
               <TableCell className="text-xl font-bold">Venue</TableCell>
-              <TableCell className="text-xl font-bold">Date</TableCell>
-              <TableCell className="text-xl font-bold">Time</TableCell>
               <TableCell className="text-xl font-bold">Price</TableCell>
               <TableCell className="text-xl font-bold">Delete Event</TableCell>
             </TableRow>
@@ -74,8 +77,6 @@ export default function Events() {
                 <TableRow>
                   <TableCell>{event.name}</TableCell>
                   <TableCell>{event.venue.name}</TableCell>
-                  <TableCell>{event.date}</TableCell>
-                  <TableCell>{event.time}</TableCell>
                   <TableCell>{event.price}</TableCell>
                   <TableCell>
                     <Button onClick={deleteEvent}>

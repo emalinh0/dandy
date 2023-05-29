@@ -64,6 +64,7 @@ export default function Login() {
         className="flex flex-col bg-[#fcfcfc] shadow-xl rounded-lg w-96 p-6"
         method="POST"
         onSubmit={onSubmit}
+        action="http://localhost:8080/api/v1/users/login"
       >
         <FormControl>
           <FormHelperText id="my-helper-text">
